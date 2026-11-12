@@ -67,6 +67,14 @@
     </form>
   </aside>
   <main>
+    <div class="searchbar" role="search">
+      <label for="q">Search players</label>
+      <div class="searchbox">
+        <input type="search" id="q" placeholder="Name, club or country — e.g. mainoo man utd" autocomplete="off" spellcheck="false" disabled>
+        <button type="button" class="clearq" id="clearQ" aria-label="Clear search" hidden>×</button>
+      </div>
+      <kbd title="Press / to focus the search box">/</kbd>
+    </div>
     <nav class="quick" id="quick" aria-label="Quick searches"></nav>
     <div class="toolbar"><span id="similarNote"></span><span id="count" aria-live="polite"></span><span id="keyNote"></span></div>
     <div class="tablewrap" id="tablewrap"><div class="status" id="status">Starting…</div></div>

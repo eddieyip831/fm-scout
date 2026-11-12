@@ -74,7 +74,8 @@ const BASE_COLUMNS = [
 
 const $ = id => document.getElementById(id);
 const state = { players: [], data: null, attrIndex: {}, posIndex: {}, positions: new Set(),
-  refCache: {}, similarTo: null, matchOf: new Map(), shortlist: new Set(), attrFilters: [], sort: { key: "ca", dir: -1 }, shown: 200, filtered: [], managedClub: null };
+  refCache: {}, similarTo: null, matchOf: new Map(), shortlist: new Set(), attrFilters: [], sort: { key: "ca", dir: -1 }, shown: 200, filtered: [], managedClub: null,
+  search: { text: "", rank: null, index: null, byUid: null, userSort: false } };
 
 function el(tag, props, ...children) {
   const node = document.createElement(tag);
@@ -284,6 +285,7 @@ function applyData(data) {
   state.attrIndex = Object.fromEntries(data.attributes.map((a, i) => [a, i]));
   state.posIndex = Object.fromEntries(data.positions.map((a, i) => [a.toUpperCase(), i]));
   state.players = data.rows.map(r => Object.fromEntries(data.columns.map((c, i) => [c, r[i]])));
+  buildSearchIndex();
   if (state.similarTo) state.similarTo = state.players.find(p => p.uid === state.similarTo.uid) || null;
   $("saveMeta").textContent = `${data.game} · in-game date ${data.game_date} · ${state.players.length.toLocaleString()} players`
     + (data.known_build ? "" : " · unverified game build");
@@ -342,6 +344,8 @@ function apply() {
     for (const a of attrs) if ((attr(p, a.name) ?? 0) < a.min) return false;
     return true;
   });
+  state.search.rank = searchRank(state.filtered);
+  if (state.search.rank) state.filtered = state.filtered.filter(p => state.search.rank.has(p));
   if (state.similarTo) {
     state.filtered.sort((a, b) => state.matchOf.get(b) - state.matchOf.get(a));
     state.filtered.length = Math.min(state.filtered.length, SIMILAR_LIMIT);
@@ -350,6 +354,73 @@ function apply() {
   sortRows();
   render();
 }
+
+// Search box (MiniSearch, vendored in web/vendor). The index is built once per loaded save. Each word
+// typed is matched against the words of the name, club and nationalities: exact first, then prefix,
+// then close misspellings. Equal matches are ordered by current ability.
+const SEARCH_LIB = "./vendor/minisearch-7.2.0.mjs";
+const SEARCH_FOLD = { "ø": "o", "æ": "ae", "œ": "oe", "ß": "ss", "đ": "d", "ð": "d", "ł": "l", "ı": "i", "þ": "th" };
+const searchTerm = t => fold(t).replace(/[øæœßđðłıþ]/g, ch => SEARCH_FOLD[ch]);
+const SEARCH_BOOST = { name: 3, club: 1.5, club_short: 1.5 };
+const SEARCH_FUZZY = { fuzzy: term => (term.length > 3 ? 0.34 : false), maxFuzzy: 2 };
+// Tried in order until one finds players that pass the sidebar filters: every word exact or as a prefix; every word allowing
+// misspellings; any word allowing misspellings.
+const SEARCH_TIERS = [
+  { combineWith: "AND" },
+  { combineWith: "AND", ...SEARCH_FUZZY },
+  { combineWith: "OR", ...SEARCH_FUZZY },
+].map(tier => ({ prefix: true, boost: SEARCH_BOOST, ...tier }));
+const searchLibReady = import(SEARCH_LIB).then(m => m.default);
+searchLibReady.catch(err => {
+  console.error("Search library failed to load", err);
+  $("q").placeholder = "Search unavailable (library failed to load)";
+});
+function buildSearchIndex() {
+  const players = state.players;
+  state.search.index = null; state.search.rank = null;
+  searchLibReady.then(MiniSearch => {
+    if (players !== state.players) return;   // a newer save replaced this one while loading
+    const index = new MiniSearch({
+      idField: "uid", fields: ["name", "club", "club_short", "nations"], processTerm: searchTerm,
+      extractField: (p, field) => (field === "nations" ? [p.nation].concat(p.second_nations).filter(Boolean).join(" ") : p[field]),
+    });
+    index.addAll(players);
+    state.search.index = index;
+    state.search.byUid = new Map(players.map(p => [p.uid, p]));
+    $("q").disabled = false;
+    runSearch();
+  }, () => { /* reported once by searchLibReady.catch above */ });
+}
+function runSearch() {
+  const s = state.search, text = $("q").value.trim();
+  if (text !== s.text) { s.text = text; s.userSort = false; }
+  $("clearQ").hidden = !$("q").value;
+  apply();
+}
+// Ranks the players in `pool` (those passing the sidebar filters) against the search text: a Map of
+// player to position, best first, or null when there is no search. Tiers are judged within the pool,
+// so a misspelling still finds a player when the only exact match is filtered out.
+function searchRank(pool) {
+  const s = state.search;
+  if (!s.text || !s.index) return null;
+  const inPool = new Set(pool);
+  for (const tier of SEARCH_TIERS) {
+    const ranked = s.index.search(s.text, tier)
+      .map(h => ({ player: s.byUid.get(h.id), score: h.score })).filter(r => inPool.has(r.player));
+    if (!ranked.length) continue;
+    ranked.sort((a, b) => (Math.abs(b.score - a.score) > 1e-9 ? b.score - a.score : (b.player.ca || 0) - (a.player.ca || 0)));
+    return new Map(ranked.map((r, i) => [r.player, i]));
+  }
+  return new Map();
+}
+// Empties the box without re-filtering; callers apply() afterwards.
+function clearSearch() {
+  $("q").value = "";
+  Object.assign(state.search, { text: "", rank: null, userSort: false });
+  $("clearQ").hidden = true;
+}
+// While a search is active rows follow match closeness, until the user clicks a column header.
+const byRelevance = () => Boolean(state.search.rank) && !state.search.userSort && !state.similarTo;
 
 function keySetName() {
   const names = new Set([...state.positions].map(x => KEY_BY_POSITION[x]));
@@ -367,6 +438,11 @@ function columns() {
 }
 
 function sortRows() {
+  if (byRelevance()) {
+    const rank = state.search.rank;
+    state.filtered.sort((a, b) => rank.get(a) - rank.get(b));
+    return;
+  }
   const col = columns().find(c => c.key === state.sort.key) || BASE_COLUMNS.find(c => c.key === "ca");
   const dir = state.sort.dir;
   state.filtered.sort((a, b) => {
@@ -381,17 +457,25 @@ function sortRows() {
 function render() {
   const cols = columns();
   const total = state.filtered.length;
-  $("count").textContent = `${total.toLocaleString()} of ${state.players.length.toLocaleString()} players`;
+  const searching = Boolean(state.search.rank);
+  $("count").textContent = `${total.toLocaleString()} of ${state.players.length.toLocaleString()} players`
+    + (searching ? ` · search: “${state.search.text}”` : "");
   $("keyNote").textContent = $("fKeyAttrs").checked ? `Key attributes: ${keySetName()}` : "";
   $("similarNote").replaceChildren(...(state.similarTo ? [
     el("strong", {}, `Similar to ${state.similarTo.name}`), ` · closest ${SIMILAR_LIMIT} within your filters `,
     el("button", { class: "btn small", type: "button", onclick: clearSimilar }, "Clear")] : []));
-  if (!total) { setStatus("No players match these filters."); $("count").textContent = "0 players match"; return; }
+  if (!total) {
+    setStatus(searching ? "No players match this search. Try loosening the sidebar filters or changing the search."
+      : "No players match these filters.");
+    $("count").textContent = searching ? `0 players match · search: “${state.search.text}”` : "0 players match";
+    return;
+  }
+  const sortedBy = byRelevance() ? null : state.sort.key;
   const head = el("tr", {}, cols.map(c => el("th", {
     class: c.num ? "num" : "", scope: "col", tabindex: "0", title: c.title || null,
-    "aria-sort": state.sort.key === c.key ? (state.sort.dir === 1 ? "ascending" : "descending") : null,
+    "aria-sort": sortedBy === c.key ? (state.sort.dir === 1 ? "ascending" : "descending") : null,
     onclick: () => setSort(c), onkeydown: e => { if (e.key === "Enter") setSort(c); },
-  }, c.label + (state.sort.key === c.key ? (state.sort.dir === 1 ? " ▲" : " ▼") : ""))));
+  }, c.label + (sortedBy === c.key ? (state.sort.dir === 1 ? " ▲" : " ▼") : ""))));
   const body = el("tbody", {}, state.filtered.slice(0, state.shown).map(p => el("tr", {
     tabindex: "0", onclick: () => openProfile(p), onkeydown: e => { if (e.key === "Enter") openProfile(p); },
   }, cols.map(c => {
@@ -410,6 +494,7 @@ function render() {
 }
 
 function setSort(col) {
+  state.search.userSort = true;
   state.sort = state.sort.key === col.key ? { key: col.key, dir: -state.sort.dir }
     : { key: col.key, dir: col.num ? -1 : 1 };
   sortRows(); render();
@@ -609,6 +694,7 @@ function similarPlayers(p, count, anyGender) {
 const SIMILAR_LIMIT = 100;
 function showSimilar(p) {
   state.similarTo = p;
+  clearSearch();
   if (p.gender) $("fGender").value = p.gender;
   state.sort = { key: "match", dir: -1 };
   clearQuick();
@@ -892,6 +978,7 @@ function runQuick(item, button) {
     else $(id).value = value;
   }
   state.similarTo = null;
+  clearSearch();
   state.sort = { key: item.sort || "ca", dir: -1 };
   clearQuick();
   button.setAttribute("aria-pressed", "true");
@@ -911,6 +998,7 @@ function resetFilters() {
   state.positions.clear();
   state.attrFilters = [];
   state.similarTo = null;
+  clearSearch();
   if (state.sort.key === "match") state.sort = { key: "ca", dir: -1 };
   renderAttrChips();
   buildPositionChips();
@@ -929,6 +1017,18 @@ async function start() {
   $("attrPicker").addEventListener("close", () => { renderAttrChips(); clearQuick(); apply(); });
   $("attrPicker").addEventListener("click", e => { if (e.target === $("attrPicker")) $("attrPicker").close(); });
   $("resetBtn").addEventListener("click", resetFilters);
+  let searchTimer;
+  $("q").addEventListener("input", () => {
+    $("clearQ").hidden = !$("q").value;
+    clearTimeout(searchTimer); searchTimer = setTimeout(runSearch, 150);
+  });
+  $("clearQ").addEventListener("click", () => { clearTimeout(searchTimer); clearSearch(); apply(); $("q").focus(); });
+  document.addEventListener("keydown", e => {
+    if (e.key !== "/" || e.ctrlKey || e.metaKey || e.altKey || $("q").disabled) return;
+    const t = e.target;
+    if (t.closest && t.closest("input, textarea, select, [contenteditable]") || document.querySelector("dialog[open]")) return;
+    e.preventDefault(); $("q").focus(); $("q").select();
+  });
   $("profile").addEventListener("click", e => { if (e.target === $("profile")) $("profile").close(); });
 
   $("saveSelect").addEventListener("change", loadSelected);

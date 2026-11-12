@@ -10,6 +10,8 @@ Unofficial fan project. Not affiliated with Sports Interactive or SEGA.
 ## What it does
 
 - Lists every player in a save with ability, potential, value, wage and contract.
+- Fuzzy search box at the top (press `/` to focus): type part of a name, club or
+  country, misspelt or without accents; every word must match, best match first.
 - Filters by name, club, nationality, gender, position, age, ability, value, wage,
   contract end and any of the 52 attributes.
 - Quick searches: best players by position, wonderkids, bargains, free agents,
@@ -44,6 +46,9 @@ an MIT-licensed reader. `web/reader.py` shapes the result for the page.
 - The fmsave wheel is vendored in `web/vendor/` with its licence and verified by
   SHA-256 before it is installed. To update it, replace the wheel and change
   `WHEEL` and `WHEEL_SHA256` in `web/worker.js`.
+- The search box uses [MiniSearch](https://github.com/lucaong/minisearch) 7.2.0 (MIT),
+  vendored as `web/vendor/minisearch-7.2.0.mjs` with its licence in
+  `web/vendor/MINISEARCH-LICENSE`; the index is built in the browser when a save loads.
 - `web/nations.json` maps the game's nation ids to names. Regenerate it from an
   installed game with `scripts/extract_nations.py`.
 
