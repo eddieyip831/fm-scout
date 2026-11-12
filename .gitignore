@@ -1,0 +1,13 @@
+# Personal game data: never commit saves or shortlists
+saves/
+data/
+*.fmv
+*.fm
+
+# Local tooling
+.venv/
+__pycache__/
+.agent/
+.claude/
+.vercel/
+.DS_Store

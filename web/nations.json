@@ -1,0 +1,982 @@
+{
+"5": [
+"Algeria",
+"ALG"
+],
+"6": [
+"Angola",
+"ANG"
+],
+"7": [
+"Benin",
+"BEN"
+],
+"8": [
+"Botswana",
+"BOT"
+],
+"9": [
+"Burkina Faso",
+"BFA"
+],
+"10": [
+"Burundi",
+"BDI"
+],
+"11": [
+"Cameroon",
+"CMR"
+],
+"12": [
+"Cape Verde",
+"CPV"
+],
+"13": [
+"Central African Republic",
+"CTA"
+],
+"14": [
+"Chad",
+"CHA"
+],
+"15": [
+"Djibouti",
+"DJI"
+],
+"16": [
+"Egypt",
+"EGY"
+],
+"17": [
+"Equatorial Guinea",
+"EQG"
+],
+"18": [
+"Ethiopia",
+"ETH"
+],
+"19": [
+"Gabon",
+"GAB"
+],
+"20": [
+"The Gambia",
+"GAM"
+],
+"21": [
+"Ghana",
+"GHA"
+],
+"22": [
+"Guinea",
+"GUI"
+],
+"23": [
+"Guinea-Bissau",
+"GNB"
+],
+"24": [
+"Ivory Coast",
+"CIV"
+],
+"25": [
+"Kenya",
+"KEN"
+],
+"26": [
+"Lesotho",
+"LES"
+],
+"27": [
+"Liberia",
+"LBR"
+],
+"28": [
+"Libya",
+"LBY"
+],
+"29": [
+"Madagascar",
+"MAD"
+],
+"30": [
+"Malawi",
+"MWI"
+],
+"31": [
+"Mali",
+"MLI"
+],
+"32": [
+"Mauritania",
+"MTN"
+],
+"33": [
+"Mauritius",
+"MRI"
+],
+"34": [
+"Morocco",
+"MAR"
+],
+"35": [
+"Mozambique",
+"MOZ"
+],
+"36": [
+"Namibia",
+"NAM"
+],
+"37": [
+"Niger",
+"NIG"
+],
+"38": [
+"Nigeria",
+"NGA"
+],
+"39": [
+"Rwanda",
+"RWA"
+],
+"40": [
+"São Tomé and Príncipe",
+"STP"
+],
+"41": [
+"Senegal",
+"SEN"
+],
+"42": [
+"Seychelles",
+"SEY"
+],
+"43": [
+"Sierra Leone",
+"SLE"
+],
+"44": [
+"Somalia",
+"SOM"
+],
+"45": [
+"South Africa",
+"RSA"
+],
+"46": [
+"Sudan",
+"SDN"
+],
+"47": [
+"Eswatini",
+"SWZ"
+],
+"48": [
+"Tanzania",
+"TAN"
+],
+"49": [
+"Congo",
+"CGO"
+],
+"50": [
+"Togo",
+"TOG"
+],
+"51": [
+"Tunisia",
+"TUN"
+],
+"52": [
+"Uganda",
+"UGA"
+],
+"53": [
+"Democratic Republic of Congo",
+"COD"
+],
+"54": [
+"Zambia",
+"ZAM"
+],
+"55": [
+"Zimbabwe",
+"ZIM"
+],
+"106": [
+"Afghanistan",
+"AFG"
+],
+"107": [
+"Bahrain",
+"BHR"
+],
+"108": [
+"Bangladesh",
+"BAN"
+],
+"109": [
+"Brunei Darussalam",
+"BRU"
+],
+"110": [
+"China PR",
+"CHN"
+],
+"111": [
+"Hong Kong (China PR)",
+"HKG"
+],
+"112": [
+"India",
+"IND"
+],
+"113": [
+"Indonesia",
+"IDN"
+],
+"114": [
+"Iran",
+"IRN"
+],
+"115": [
+"Iraq",
+"IRQ"
+],
+"116": [
+"Japan",
+"JPN"
+],
+"117": [
+"Jordan",
+"JOR"
+],
+"118": [
+"Cambodia",
+"CAM"
+],
+"119": [
+"Kazakhstan",
+"KAZ"
+],
+"120": [
+"Kuwait",
+"KUW"
+],
+"121": [
+"Kyrgyzstan",
+"KGZ"
+],
+"122": [
+"Laos",
+"LAO"
+],
+"123": [
+"Lebanon",
+"LBN"
+],
+"124": [
+"Macau (China PR)",
+"MAC"
+],
+"125": [
+"Malaysia",
+"MAS"
+],
+"126": [
+"Maldives",
+"MDV"
+],
+"127": [
+"Myanmar",
+"MYA"
+],
+"128": [
+"Nepal",
+"NEP"
+],
+"129": [
+"North Korea",
+"PRK"
+],
+"130": [
+"Oman",
+"OMA"
+],
+"131": [
+"Pakistan",
+"PAK"
+],
+"132": [
+"Qatar",
+"QAT"
+],
+"133": [
+"Saudi Arabia",
+"KSA"
+],
+"134": [
+"Singapore",
+"SGP"
+],
+"135": [
+"South Korea",
+"KOR"
+],
+"136": [
+"Sri Lanka",
+"SRI"
+],
+"137": [
+"Syria",
+"SYR"
+],
+"138": [
+"Chinese Taipei (China PR)",
+"TPE"
+],
+"139": [
+"Tajikistan",
+"TJK"
+],
+"140": [
+"Thailand",
+"THA"
+],
+"141": [
+"Philippines",
+"PHI"
+],
+"142": [
+"Turkmenistan",
+"TKM"
+],
+"143": [
+"United Arab Emirates",
+"UAE"
+],
+"144": [
+"Uzbekistan",
+"UZB"
+],
+"145": [
+"Vietnam",
+"VIE"
+],
+"146": [
+"Yemen",
+"YEM"
+],
+"359": [
+"Antigua and Barbuda",
+"ATG"
+],
+"360": [
+"Aruba",
+"ARU"
+],
+"361": [
+"Barbados",
+"BRB"
+],
+"362": [
+"Belize",
+"BLZ"
+],
+"363": [
+"Bermuda",
+"BER"
+],
+"364": [
+"Canada",
+"CAN"
+],
+"365": [
+"Cayman Islands",
+"CAY"
+],
+"366": [
+"Costa Rica",
+"CRC"
+],
+"367": [
+"Cuba",
+"CUB"
+],
+"368": [
+"Dominica",
+"DMA"
+],
+"370": [
+"El Salvador",
+"SLV"
+],
+"371": [
+"Grenada",
+"GRN"
+],
+"373": [
+"Guatemala",
+"GUA"
+],
+"374": [
+"Guyana",
+"GUY"
+],
+"375": [
+"Haiti",
+"HAI"
+],
+"376": [
+"Honduras",
+"HON"
+],
+"377": [
+"Jamaica",
+"JAM"
+],
+"379": [
+"Mexico",
+"MEX"
+],
+"380": [
+"Curaçao",
+"CUW"
+],
+"381": [
+"Nicaragua",
+"NCA"
+],
+"382": [
+"Panama",
+"PAN"
+],
+"383": [
+"Puerto Rico",
+"PUR"
+],
+"384": [
+"Saint Lucia",
+"LCA"
+],
+"385": [
+"Saint Kitts and Nevis",
+"SKN"
+],
+"386": [
+"Saint Vincent and the Grenadines",
+"VIN"
+],
+"387": [
+"Suriname",
+"SUR"
+],
+"388": [
+"The Bahamas",
+"BAH"
+],
+"389": [
+"Trinidad and Tobago",
+"TRI"
+],
+"390": [
+"United States",
+"USA"
+],
+"574": [
+"Commonwealth of Soviet States",
+"CIS"
+],
+"575": [
+"Czechoslovakia",
+"CSV"
+],
+"577": [
+"East Germany",
+"GDR"
+],
+"583": [
+"Soviet Union",
+"URS"
+],
+"584": [
+"West Germany",
+"FRG"
+],
+"752": [
+"Albania",
+"ALB"
+],
+"753": [
+"Andorra",
+"AND"
+],
+"754": [
+"Armenia",
+"ARM"
+],
+"755": [
+"Austria",
+"AUT"
+],
+"756": [
+"Azerbaijan",
+"AZE"
+],
+"757": [
+"Belgium",
+"BEL"
+],
+"758": [
+"Belarus",
+"BLR"
+],
+"759": [
+"Bosnia and Herzegovina",
+"BIH"
+],
+"760": [
+"Bulgaria",
+"BUL"
+],
+"761": [
+"Croatia",
+"CRO"
+],
+"762": [
+"Cyprus",
+"CYP"
+],
+"763": [
+"Czechia",
+"CZE"
+],
+"764": [
+"Denmark",
+"DEN"
+],
+"765": [
+"England",
+"ENG"
+],
+"766": [
+"Estonia",
+"EST"
+],
+"767": [
+"Faroe Islands",
+"FRO"
+],
+"768": [
+"Finland",
+"FIN"
+],
+"769": [
+"France",
+"FRA"
+],
+"770": [
+"Georgia",
+"GEO"
+],
+"771": [
+"Germany",
+"GER"
+],
+"772": [
+"Greece",
+"GRE"
+],
+"773": [
+"Hungary",
+"HUN"
+],
+"774": [
+"Iceland",
+"ISL"
+],
+"775": [
+"Israel",
+"ISR"
+],
+"776": [
+"Italy",
+"ITA"
+],
+"777": [
+"Latvia",
+"LVA"
+],
+"778": [
+"Liechtenstein",
+"LIE"
+],
+"779": [
+"Lithuania",
+"LTU"
+],
+"780": [
+"Luxembourg",
+"LUX"
+],
+"781": [
+"North Macedonia",
+"MKD"
+],
+"782": [
+"Malta",
+"MLT"
+],
+"783": [
+"Moldova",
+"MDA"
+],
+"784": [
+"Netherlands",
+"NED"
+],
+"785": [
+"Northern Ireland",
+"NIR"
+],
+"786": [
+"Norway",
+"NOR"
+],
+"787": [
+"Poland",
+"POL"
+],
+"788": [
+"Portugal",
+"POR"
+],
+"789": [
+"Republic of Ireland",
+"IRL"
+],
+"790": [
+"Romania",
+"ROU"
+],
+"791": [
+"Russia",
+"RUS"
+],
+"792": [
+"San Marino",
+"SMR"
+],
+"793": [
+"Scotland",
+"SCO"
+],
+"794": [
+"Slovakia",
+"SVK"
+],
+"795": [
+"Slovenia",
+"SVN"
+],
+"796": [
+"Spain",
+"ESP"
+],
+"797": [
+"Sweden",
+"SWE"
+],
+"798": [
+"Switzerland",
+"SUI"
+],
+"799": [
+"Türkiye",
+"TUR"
+],
+"800": [
+"Ukraine",
+"UKR"
+],
+"801": [
+"Wales",
+"WAL"
+],
+"802": [
+"Serbia",
+"SRB"
+],
+"1435": [
+"Australia",
+"AUS"
+],
+"1436": [
+"Cook Islands",
+"COK"
+],
+"1437": [
+"Fiji",
+"FIJ"
+],
+"1438": [
+"New Zealand",
+"NZL"
+],
+"1439": [
+"Papua New Guinea",
+"PNG"
+],
+"1440": [
+"Solomon Islands",
+"SOL"
+],
+"1441": [
+"Tahiti",
+"TAH"
+],
+"1442": [
+"Tonga",
+"TGA"
+],
+"1443": [
+"Vanuatu",
+"VAN"
+],
+"1444": [
+"Samoa",
+"SAM"
+],
+"1649": [
+"Argentina",
+"ARG"
+],
+"1650": [
+"Bolivia",
+"BOL"
+],
+"1651": [
+"Brazil",
+"BRA"
+],
+"1652": [
+"Chile",
+"CHI"
+],
+"1653": [
+"Colombia",
+"COL"
+],
+"1654": [
+"Ecuador",
+"ECU"
+],
+"1655": [
+"Paraguay",
+"PAR"
+],
+"1656": [
+"Peru",
+"PER"
+],
+"1657": [
+"Uruguay",
+"URU"
+],
+"1658": [
+"Venezuela",
+"VEN"
+],
+"1662": [
+"Palestine",
+"PLE"
+],
+"103277": [
+"Zaire",
+"ZAI"
+],
+"114502": [
+"Pays Basque",
+"BAS"
+],
+"129504": [
+"American Samoa",
+"ASA"
+],
+"129505": [
+"Mongolia",
+"MNG"
+],
+"129508": [
+"Guam",
+"GUM"
+],
+"129511": [
+"Eritrea",
+"ERI"
+],
+"129514": [
+"Anguilla",
+"AIA"
+],
+"129517": [
+"British Virgin Islands",
+"VGB"
+],
+"129520": [
+"Montserrat",
+"MSR"
+],
+"129523": [
+"US Virgin Islands",
+"VIR"
+],
+"129526": [
+"Turks and Caicos Islands",
+"TCA"
+],
+"129532": [
+"New Caledonia",
+"NCL"
+],
+"131012": [
+"Bhutan",
+"BHU"
+],
+"142527": [
+"Dominican Republic",
+"DOM"
+],
+"145174": [
+"Great Britain",
+"GBR"
+],
+"208996": [
+"South Yemen",
+"SYE"
+],
+"209002": [
+"Kiribati",
+"KIR"
+],
+"214394": [
+"Gibraltar",
+"GIB"
+],
+"214395": [
+"Bonaire",
+"BOE"
+],
+"215446": [
+"Crimea",
+"CRM"
+],
+"217945": [
+"Kosovo",
+"KOS"
+],
+"917496": [
+"French Guiana",
+"GUF"
+],
+"917498": [
+"Guadeloupe",
+"GLP"
+],
+"917502": [
+"Martinique",
+"MTQ"
+],
+"917506": [
+"Sint Maarten",
+"SMA"
+],
+"917508": [
+"Saint Martin",
+"SMN"
+],
+"917510": [
+"Réunion",
+"REU"
+],
+"918740": [
+"Mayotte",
+"MAY"
+],
+"918745": [
+"Wallis and Futuna Islands",
+"WFI"
+],
+"918748": [
+"Saint Pierre and Miquelon",
+"SPM"
+],
+"919586": [
+"Comoros",
+"COM"
+],
+"5626565": [
+"South Vietnam",
+"VSO"
+],
+"5626837": [
+"East Timor",
+"TLS"
+],
+"5630219": [
+"Burma",
+"BUR"
+],
+"8162661": [
+"Monaco",
+"MON"
+],
+"13100103": [
+"Zanzibar",
+"ZAN"
+],
+"13113220": [
+"South Sudan",
+"SSD"
+],
+"13116454": [
+"Upper Volta",
+"UPV"
+],
+"15064643": [
+"Micronesia",
+"FSM"
+],
+"23008660": [
+"Northern Mariana Islands",
+"NMI"
+],
+"23088616": [
+"Tuvalu",
+"TUV"
+],
+"29118470": [
+"United Arab Republic",
+"UAR"
+],
+"52024163": [
+"Ireland (Pre-1922)",
+"IRE"
+],
+"62002127": [
+"Montenegro",
+"MNE"
+],
+"62003815": [
+"Yugoslavia",
+"YUG"
+],
+"82082526": [
+"Saint Barthélemy",
+"BLM"
+],
+"82082540": [
+"Netherlands Antilles",
+"ANT"
+]
+}

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Search and compare the players in your Football Manager save. The save is read in your browser and never uploaded.">
+<title>FM Scout</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <h1>FM Scout</h1>
+  <span class="meta" id="saveMeta">No save loaded</span>
+  <span class="spacer"></span>
+  <label for="saveSelect" class="inline">Save</label>
+  <select id="saveSelect" class="saveselect"></select>
+  <button class="btn" id="reload" type="button">Reload</button>
+  <button class="btn" id="changeSource" type="button">Change source</button>
+  <input type="file" id="fileInput" accept=".fmv,.fm" hidden>
+</header>
+<div class="layout">
+  <aside>
+    <form id="filters" autocomplete="off">
+      <fieldset>
+        <legend>Search</legend>
+        <div class="field"><label for="fName">Player name</label><input type="text" id="fName" placeholder="e.g. Mainoo"></div>
+        <div class="field"><label for="fClub">Club</label><input type="text" id="fClub" placeholder="e.g. Man Utd"></div>
+        <div class="field"><label for="fNation">Nationality</label><select id="fNation"><option value="">Any</option></select></div>
+        <div class="field"><label for="fGender">Gender</label><select id="fGender"><option value="men" selected>Men</option><option value="women">Women</option><option value="">Any</option></select></div>
+      </fieldset>
+      <fieldset>
+        <legend>Position</legend>
+        <div class="chips" id="posChips"></div>
+        <label class="check spaced"><input type="checkbox" id="fNaturalOnly"> Natural position only</label>
+      </fieldset>
+      <fieldset>
+        <legend>Profile</legend>
+        <div class="chips presets" id="agePresets" aria-label="Age presets"></div>
+        <div class="row">
+          <div><label for="fAgeMin">Age min</label><input type="number" id="fAgeMin" min="14" max="50"></div>
+          <div><label for="fAgeMax">Age max</label><input type="number" id="fAgeMax" min="14" max="50"></div>
+        </div>
+        <div class="row">
+          <div><label for="fCaMin">Ability min</label><input type="number" id="fCaMin" min="1" max="200"></div>
+          <div><label for="fPaMin">Potential min</label><input type="number" id="fPaMin" min="1" max="200"></div>
+        </div>
+        <div class="row">
+          <div><label for="fValueMax">Max value (£m)</label><input type="number" id="fValueMax" min="0" step="0.5"></div>
+          <div><label for="fWageMax">Max wage (£k)</label><input type="number" id="fWageMax" min="0" step="1"></div>
+        </div>
+        <div class="field"><label for="fContract">Contract ends on or before</label><input type="date" id="fContract"></div>
+        <div class="chips presets" id="contractPresets" aria-label="Contract presets"></div>
+        <label class="check"><input type="checkbox" id="fFree"> Free agents only</label>
+        <label class="check"><input type="checkbox" id="fShort"> Shortlisted players only</label>
+        <div class="shortio"><button class="btn small" type="button" id="exportShort">Export shortlist</button>
+          <button class="btn small" type="button" id="importShort">Import shortlist</button>
+          <input type="file" id="shortInput" accept="application/json,.json" hidden></div>
+        <label class="check"><input type="checkbox" id="fHideMine"> Hide my club's players</label>
+        <label class="check"><input type="checkbox" id="fKeyAttrs" checked> Show key attributes in the list</label>
+      </fieldset>
+      <fieldset>
+        <legend>Attributes (minimum)</legend>
+        <div id="attrFilters"></div>
+        <button class="btn" type="button" id="addAttr">Choose attributes…</button>
+      </fieldset>
+      <button class="btn" type="button" id="resetBtn">Reset filters</button>
+    </form>
+  </aside>
+  <main>
+    <nav class="quick" id="quick" aria-label="Quick searches"></nav>
+    <div class="toolbar"><span id="similarNote"></span><span id="count" aria-live="polite"></span><span id="keyNote"></span></div>
+    <div class="tablewrap" id="tablewrap"><div class="status" id="status">Starting…</div></div>
+  </main>
+</div>
+<dialog id="profile" aria-label="Player profile"></dialog>
+<dialog id="attrPicker" aria-label="Attribute filters"></dialog>
+
+<script src="app.js"></script>
+</body>
+</html>
